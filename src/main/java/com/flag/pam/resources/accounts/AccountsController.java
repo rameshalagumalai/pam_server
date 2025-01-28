@@ -48,7 +48,7 @@ public class AccountsController {
     }
 
     @GetMapping("/{accountId:\\d+}")
-    public AppResponse getAccountById(@PathVariable Long accountId) throws Exception {
+    public AppResponse getAccountById(@PathVariable long accountId) throws Exception {
         Optional<Account> accountResult = accountsRepository.findById(accountId);
         if (!accountResult.isPresent()) {
             throw new NoResourceFoundException(null, null);
@@ -57,7 +57,7 @@ public class AccountsController {
     }
 
     @PutMapping(path = "/{accountId:\\d+}")
-    public AppResponse editAccountById(@PathVariable Long accountId, @Valid @RequestBody AccountPayload payload) throws Exception {
+    public AppResponse editAccountById(@PathVariable long accountId, @Valid @RequestBody AccountPayload payload) throws Exception {
         Optional<Account> accountResult = accountsRepository.findById(accountId);
         if (!accountResult.isPresent()) {
             throw new NoResourceFoundException(null, null);
@@ -73,7 +73,7 @@ public class AccountsController {
     }
 
     @DeleteMapping("/{accountId:\\d+}")
-    public AppResponse deleteAccountById(@PathVariable Long accountId) throws Exception {
+    public AppResponse deleteAccountById(@PathVariable long accountId) throws Exception {
         Optional<Account> accountResult = accountsRepository.findById(accountId);
         if (!accountResult.isPresent()) {
             throw new NoResourceFoundException(null, null);

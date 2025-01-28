@@ -22,7 +22,7 @@ public class UserEditPayload {
     private String name;
 
     @Size(max = 30)
-    @Pattern(regexp = "^[a-zA-Z0-9.-]{2,256}@[a-zA-Z][a-zA-Z]{2,64}$", message = "UPI ID must be of the format 'sample@sample'")
+    @Pattern(regexp = "^[a-zA-Z0-9.-]{2,256}@[a-zA-Z][a-zA-Z]{2,64}$", message = "Provide a valid UPI ID")
     @JsonProperty("upi_id")
     private String upiId;
 

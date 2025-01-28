@@ -31,10 +31,10 @@ public class AccountPayload {
 
     @NotEmpty
     @Size(max = 7)
-    @Pattern(regexp = "cash|bank|credits", message = "Invalid value passed for account type")
+    @Pattern(regexp = "cash|bank|credits", message = "Provide a valid account type")
     private String type;
 
-    @Min(value = 0, message = "Make sure that balance has a maximum of 2 decimal places")
+    @Min(value = 0, message = "Make sure that balance is greater than 0")
     private float balance;
 
     public byte getTypeValue() {

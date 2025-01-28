@@ -1,4 +1,4 @@
-package com.flag.pam.resources.accounts;
+package com.flag.pam.resources.categories;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,38 +21,40 @@ import java.util.Map;
 
 /**
  * @author rameshalagumalai
- * @Date 27/01/2025
+ * @Date 28/01/2025
  * */
 
+@Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "accounts")
-public class Account {
+@Table(name = "categories")
+public class Category {
 
-    private static final Map<Byte, String> ACCOUNT_TYPE_MAP = Map.ofEntries(
-            Map.entry((byte) 1, "bank"),
-            Map.entry((byte) 2, "cash"),
-            Map.entry((byte) 3,"credits")
+    private static final Map<Byte, String> CATEGORY_TYPE_MAP = Map.ofEntries(
+            Map.entry((byte) 1, "expense"),
+            Map.entry((byte) 2, "income"),
+            Map.entry((byte) 3,"both")
     );
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private long id;
 
     @Column(nullable = false, length = 30)
-    @Getter
     private String name;
 
     @Column(nullable = false)
+    @JsonIgnore
     private byte type;
 
-    @Column(nullable = false)
-    @Getter
-    private float balance;
+    @Column(nullable = false, length = 10)
+    private String color;
+
+    @Column(nullable = false, length = 30)
+    private String icon;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
@@ -61,7 +63,7 @@ public class Account {
 
     @JsonProperty("type")
     public String getTypeValue() {
-        return ACCOUNT_TYPE_MAP.get(this.type);
+        return CATEGORY_TYPE_MAP.get(this.type);
     }
 
 }

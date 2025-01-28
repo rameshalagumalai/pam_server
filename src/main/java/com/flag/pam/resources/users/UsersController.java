@@ -49,7 +49,7 @@ public class UsersController {
     }
 
     @GetMapping("/{userId:\\d+}")
-    public AppResponse getUserById(@PathVariable Long userId) throws Exception {
+    public AppResponse getUserById(@PathVariable long userId) throws Exception {
         Optional<User> userResult = usersRepository.findById(userId);
         if (!userResult.isPresent()) {
             throw new NoResourceFoundException(null, null);
@@ -58,7 +58,7 @@ public class UsersController {
     }
 
     @PutMapping(path = "/{userId:\\d+}")
-    public AppResponse editUserById(@PathVariable Long userId, @Valid @RequestBody UserEditPayload payload) throws Exception {
+    public AppResponse editUserById(@PathVariable long userId, @Valid @RequestBody UserEditPayload payload) throws Exception {
         Optional<User> userResult = usersRepository.findById(userId);
         if (!userResult.isPresent()) {
             throw new NoResourceFoundException(null, null);
@@ -73,7 +73,7 @@ public class UsersController {
     }
 
     @DeleteMapping("/{userId:\\d+}")
-    public AppResponse deleteUserById(@PathVariable Long userId) throws Exception {
+    public AppResponse deleteUserById(@PathVariable long userId) throws Exception {
         Optional<User> userResult = usersRepository.findById(userId);
         if (!userResult.isPresent()) {
             throw new NoResourceFoundException(null, null);
