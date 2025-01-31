@@ -1,6 +1,7 @@
 package com.flag.pam.resources.users;
 
 import com.flag.pam.common.AppResponse;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Optional;
 
@@ -52,7 +52,7 @@ public class UsersController {
     public AppResponse getUserById(@PathVariable long userId) throws Exception {
         Optional<User> userResult = usersRepository.findById(userId);
         if (!userResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("User doesn't exist");
         }
         return new AppResponse(userResult.get());
     }
@@ -61,7 +61,7 @@ public class UsersController {
     public AppResponse editUserById(@PathVariable long userId, @Valid @RequestBody UserEditPayload payload) throws Exception {
         Optional<User> userResult = usersRepository.findById(userId);
         if (!userResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("User doesn't exist");
         }
 
         User user = userResult.get();
@@ -76,7 +76,7 @@ public class UsersController {
     public AppResponse deleteUserById(@PathVariable long userId) throws Exception {
         Optional<User> userResult = usersRepository.findById(userId);
         if (!userResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("User doesn't exist");
         }
         usersRepository.delete(userResult.get());
 

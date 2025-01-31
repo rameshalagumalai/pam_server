@@ -1,6 +1,7 @@
 package com.flag.pam.exceptions;
 
 import com.flag.pam.common.AppResponse;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.security.auth.message.AuthException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -77,6 +78,14 @@ public class AppExceptionHandler {
     private AppResponse handleException(Exception exception)  {
         System.out.println(exception);
         return new AppResponse(AppResponseCodes.INTERNAL_ERROR, "Internal error");
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    private AppResponse handleException(EntityNotFoundException exception)  {
+        System.out.println(exception);
+        return new AppResponse(AppResponseCodes.ENTITY_NOT_FOUND, exception.getMessage());
     }
 
 }

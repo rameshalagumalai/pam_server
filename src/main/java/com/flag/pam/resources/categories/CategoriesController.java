@@ -1,6 +1,7 @@
 package com.flag.pam.resources.categories;
 
 import com.flag.pam.common.AppResponse;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +53,7 @@ public class CategoriesController {
     public AppResponse getCategoryById(@PathVariable long categoryId) throws Exception {
         Optional<Category> categoryResult = categoriesRespository.findById(categoryId);
         if (!categoryResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("Category doesn't exist");
         }
         return new AppResponse(categoryResult.get());
     }
@@ -61,7 +62,7 @@ public class CategoriesController {
     public AppResponse editCategoryById(@PathVariable long categoryId, @Valid @RequestBody CategoryPayload payload) throws Exception {
         Optional<Category> categoryResult = categoriesRespository.findById(categoryId);
         if (!categoryResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("Category doesn't exist");
         }
 
         Category category = categoryResult.get();
@@ -78,7 +79,7 @@ public class CategoriesController {
     public AppResponse deleteCategoryById(@PathVariable long categoryId) throws Exception {
         Optional<Category> categoryResult = categoriesRespository.findById(categoryId);
         if (!categoryResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("Category doesn't exist");
         }
         categoriesRespository.delete(categoryResult.get());
 

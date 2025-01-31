@@ -15,5 +15,6 @@ public final class AppResponseCodes {
     public static final int USER_ERROR = 904;
     public static final int INTERNAL_ERROR = 905;
     public static final int INVALID_DATA = 906;
+    public static final int ENTITY_NOT_FOUND = 907;
 
 }

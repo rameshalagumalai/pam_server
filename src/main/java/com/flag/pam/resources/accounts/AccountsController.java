@@ -1,6 +1,7 @@
 package com.flag.pam.resources.accounts;
 
 import com.flag.pam.common.AppResponse;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Optional;
 
@@ -51,7 +51,7 @@ public class AccountsController {
     public AppResponse getAccountById(@PathVariable long accountId) throws Exception {
         Optional<Account> accountResult = accountsRepository.findById(accountId);
         if (!accountResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("Account doesn't exist");
         }
         return new AppResponse(accountResult.get());
     }
@@ -60,7 +60,7 @@ public class AccountsController {
     public AppResponse editAccountById(@PathVariable long accountId, @Valid @RequestBody AccountPayload payload) throws Exception {
         Optional<Account> accountResult = accountsRepository.findById(accountId);
         if (!accountResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("Account doesn't exist");
         }
 
         Account account = accountResult.get();
@@ -76,7 +76,7 @@ public class AccountsController {
     public AppResponse deleteAccountById(@PathVariable long accountId) throws Exception {
         Optional<Account> accountResult = accountsRepository.findById(accountId);
         if (!accountResult.isPresent()) {
-            throw new NoResourceFoundException(null, null);
+            throw new EntityNotFoundException("Account doesn't exist");
         }
         accountsRepository.delete(accountResult.get());
 
