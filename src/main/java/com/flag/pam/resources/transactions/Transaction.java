@@ -19,6 +19,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -56,19 +58,26 @@ public class Transaction {
     private float amount;
 
     @Column(nullable = false)
+    @JsonIgnore
     private long createdAt;
 
-    @ManyToOne(targetEntity = Account.class)
-    @JoinColumn(name = "account_id")
-    private long accountId;
+    @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account account;
 
-    @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "category_id")
-    private long categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @JsonProperty("type")
     public String getTypeValue() {
         return TRANSACTION_TYPE_MAP.get(this.type);
+    }
+
+    @JsonProperty("created_at")
+    public String getFormattedDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy, hh:mm a");
+        return simpleDateFormat.format(new Date(this.createdAt));
     }
 
 }
