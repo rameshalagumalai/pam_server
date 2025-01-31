@@ -1,15 +1,11 @@
 package com.flag.pam.resources.accounts;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.flag.pam.resources.users.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,11 +49,6 @@ public class Account {
     @Column(nullable = false)
     @Getter
     private float balance;
-
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private long userId;
 
     @JsonProperty("type")
     public String getTypeValue() {

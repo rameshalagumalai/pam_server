@@ -1,6 +1,5 @@
 package com.flag.pam.resources.accounts;
 
-import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
